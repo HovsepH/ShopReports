@@ -1,17 +1,24 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShopReports.Models;
-
-public class Customer
+namespace ShopReports.Models
 {
-    public int Id { get; set; }
+    [Table("customers")]
+    public class Customer
+    {
+        [Key]
+        [Column("customer_id")]
+        public int Id { get; set; }
 
-    public string CardNumber { get; set; }
+        [Column("card_number")]
+        public string CardNumber { get; set; }
 
-    public decimal Discount { get; set; }
+        [Column("discount")]
+        public decimal Discount { get; set; }
 
-    public Person Person { get; set; }
+        [Column("person_id")]
+        public Person Person { get; set; }
 
-    public virtual IList<Order> Orders { get; set; }
+        public virtual IList<Order> Orders { get; set; }
+    }
 }

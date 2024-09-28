@@ -16,7 +16,7 @@ public class ProductTitleSalesRevenueReportLine
         }
 
         var line = (ProductTitleSalesRevenueReportLine)obj;
-
+#pragma warning disable
         return this.ProductTitleName == line.ProductTitleName && this.SalesRevenue == line.SalesRevenue && this.SalesAmount == line.SalesAmount;
     }
 

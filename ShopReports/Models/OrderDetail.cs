@@ -1,23 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShopReports.Models;
-
-public class OrderDetail
+namespace ShopReports.Models
 {
-    public int Id { get; set; }
+    [Table("customer_order_details")]
+    public class OrderDetail
+    {
+        [Key]
+        [Column("customer_order_detail_id")]
+        public int Id { get; set; }
 
-    public int OrderId { get; set; }
+        [ForeignKey("Order")]
+        [Column("customer_order_id")]
+        public int OrderId { get; set; }
 
-    public int ProductId { get; set; }
+        [ForeignKey("Product")]
+        [Column("product_id")]
+        public int ProductId { get; set; }
 
-    public decimal Price { get; set; }
+        [Column("price")]
+        public decimal Price { get; set; }
 
-    public double PriceWithDiscount { get; set; }
+        [Column("price_with_discount")]
+        public double PriceWithDiscount { get; set; }
 
-    public int ProductAmount { get; set; }
+        [Column("product_amount")]
+        public int ProductAmount { get; set; }
 
-    public Order Order { get; set; }
+        public virtual Order Order { get; set; }
 
-    public Product Product { get; set; }
+        public virtual Product Product { get; set; }
+    }
 }

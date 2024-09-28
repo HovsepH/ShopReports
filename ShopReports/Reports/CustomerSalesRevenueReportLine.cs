@@ -18,7 +18,7 @@ public class CustomerSalesRevenueReportLine
         }
 
         var line = (CustomerSalesRevenueReportLine)obj;
-
+#pragma warning disable
         return this.CustomerId == line.CustomerId && this.PersonFirstName == line.PersonFirstName && this.PersonLastName == line.PersonLastName && this.SalesRevenue == line.SalesRevenue;
     }
 

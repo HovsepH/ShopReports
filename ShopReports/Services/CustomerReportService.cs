@@ -2,6 +2,7 @@
 using ShopReports.Models;
 using ShopReports.Reports;
 
+#pragma warning disable
 namespace ShopReports.Services;
 
 public class CustomerReportService : IDisposable

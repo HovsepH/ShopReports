@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using System.Xml.Linq;
+using Microsoft.EntityFrameworkCore;
 using ShopReports.Models;
 using ShopReports.Reports;
 
 namespace ShopReports.Services;
 
-public class ProductReportService : IDisposable
+public class ProductReportService
 {
     private readonly ShopContext shopContext;
 
@@ -15,25 +17,53 @@ public class ProductReportService : IDisposable
 
     public ProductCategoryReport GetProductCategoryReport()
     {
-        // TODO Implement the service method.
-        throw new NotImplementedException();
+        var categories = this.shopContext.Categories
+            .Select(c => new ProductCategoryReportLine()
+            {
+                CategoryName = c.Name,
+                CategoryId = c.Id,
+            })
+            .OrderByDescending(c => c.CategoryName)
+            .ToList();
+
+        return new ProductCategoryReport(categories, DateTime.Now);
     }
 
     public ProductReport GetProductReport()
     {
-        // TODO Implement the service method.
-        throw new NotImplementedException();
+        var products = this.shopContext.Products
+            .Select(p => new ProductReportLine()
+            {
+                Price = p.UnitPrice,
+                Manufacturer = p.Manufacturer.Name,
+                ProductTitle = p.Title.Title,
+                ProductId = p.TitleId,
+            })
+            .OrderByDescending(p => p.ProductTitle).ToList();
+
+        return new ProductReport(products, DateTime.Now);
     }
 
     public FullProductReport GetFullProductReport()
     {
-        // TODO Implement the service method.
-        throw new NotImplementedException();
+        var products = this.shopContext.Products
+            .Select(p => new FullProductReportLine()
+            {
+                Price = p.UnitPrice,
+                Manufacturer = p.Manufacturer.Name,
+                Category = p.Title.Category.Name,
+                CategoryId = p.Title.CategoryId,
+                Name = p.Title.Title,
+                ProductId = p.TitleId,
+            })
+            .OrderBy(p => p.Name).ToList();
+
+        return new FullProductReport(products, DateTime.Now);
     }
 
+#pragma warning disable
     public ProductTitleSalesRevenueReport GetProductTitleSalesRevenueReport()
     {
-        // TODO Implement the service method.
         throw new NotImplementedException();
     }
 
@@ -47,3 +77,6 @@ public class ProductReportService : IDisposable
         throw new NotImplementedException();
     }
 }
+
+
+

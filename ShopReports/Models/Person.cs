@@ -1,19 +1,26 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ShopReports.Models;
-
-public class Person
+namespace ShopReports.Models
 {
-    public int Id { get; set; }
+    [Table("persons")]
+    public class Person
+    {
+        [Key]
+        [Column("person_id")]
+        public int Id { get; set; }
 
-    public string FirstName { get; set; }
+        [Column("person_first_name")]
+        public string FirstName { get; set; }
 
-    public string LastName { get; set; }
+        [Column("person_last_name")]
+        public string LastName { get; set; }
 
-    public string BirthDate { get; set; }
+        [Column("person_birth_date")]
+        public string BirthDate { get; set; }
 
-    public virtual IList<PersonContact> Contacts { get; set; }
+        public virtual IList<PersonContact> Contacts { get; set; }
 
-    public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
+    }
 }
